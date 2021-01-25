@@ -1,5 +1,5 @@
 # Defining version of docker-compose
-version: "3"
+version: "3.7"
 
 # Next we define the services that make up our application
 services:
@@ -11,4 +11,26 @@ services:
     volumes:
       - ./web_app:/web_app
     command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000"
+      sh -c "python manage.py wait_for_db && 
+             python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
+    environment:
+    - DB_HOST=db
+    - DB_NAME=postgres
+    - DB_USER=postgres
+    - DB_PASS=postgres123
+    depends_on:
+    - db
+
+# Adding postgres db to be used with our django api, postgres requires a server to run on
+  db:
+    image: postgres:12
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment: 
+      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres123
+volumes:
+  postgres_data:
