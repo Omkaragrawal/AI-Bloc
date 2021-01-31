@@ -6,6 +6,7 @@ FROM python:3.7-slim-buster
 # MAINTAINER Arc24
 
 # Next we set some environment variables according to the project or images
+ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 # This basically tells python to run in unbuffered mode and give the output immediately to avoid complications
 
