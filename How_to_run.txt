@@ -1,3 +1,9 @@
 1. Open current repository
 2. Run following command "docker-compose build"
 3. Run following command "docker-compose up", this command will run the dango server on address: "127.0.0.1:8000"
+
+- To verify login:
+1. Try out the get option of expenses and you will get an error of no authentication provided
+2. Then login using auth api and copy the access token
+3. use the authorize button provided above and enter : "Bearer <access token>" (without quotes) and press the authorize button
+4. Again use the get method of expenses api and you will get your data

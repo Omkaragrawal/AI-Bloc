@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'authentication',
     'drf_yasg',
+    'expenses'
 ]
 
 SWAGGER_SETTINGS = {
