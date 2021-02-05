@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Redirect, useHistory, withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
+import { Grid, Button, TextField, Card, CardContent, Divider, FormControl } from '@material-ui/core';
 
 //registerSuccess
 // import registerSuccess from './registerSuccess';
 
 function RegistrationForm(props) {
-    console.log(props);
     const handleSubmitClick = async (event) => {
         event.preventDefault();
         // if (state.password === state.confirmPassword) {
@@ -21,22 +21,22 @@ function RegistrationForm(props) {
                 password: state.password
             };
             console.log(data);
-        // let results = await props.axios.post('/auth/register/', data);
-        let results = await props.axios.post('/auth/register/', data, {
-            responseType:'json'
-        });
-        if (results.data.data && Object.keys(results.data.data).length > 0) {
-            props.history.push('/registration-successful');
-            // alert("Success");
-            
-        } else {
-            console.log(results.data);
-            alert("Fail");
+            // let results = await props.axios.post('/auth/register/', data);
+            let results = await props.axios.post('/auth/register/', data, {
+                responseType: 'json'
+            });
+            if (results.data.data && Object.keys(results.data.data).length > 0) {
+                props.history.push('/registration-successful');
+                // alert("Success");
+
+            } else {
+                console.log(results.data);
+                alert("Fail");
+            }
+        } catch (err) {
+            alert(err);
+            console.log(err);
         }
-    } catch(err) {
-        alert(err);
-        console.log(err);
-    }
 
     }
     const [state, setState] = useState({
@@ -57,54 +57,73 @@ function RegistrationForm(props) {
         return <Redirect to="/" />;
     } else {
         return (
-            <div>
-                <form>
-                    <div>
-                        <label htmlFor="email">Email address</label>
-                        <input type="email"
-                            id="email"
-                            aria-describedby="emailHelp"
-                            placeholder="Enter email"
-                            value={state.email}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="username">Username</label>
-                        <input type="username"
-                            id="username"
-                            aria-describedby="Username"
-                            placeholder="Enter username"
-                            value={state.username}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="password">Password</label>
-                        <input type="password"
-                            id="password"
-                            placeholder="Password"
-                            value={state.password}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div>
-                        <label htmlFor="confirmPassword">Confirm Password</label>
-                        <input type="password"
-                            id="confirmPassword"
-                            placeholder="Confirm Password"
-                            value={state.confirmPassword}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <button
-                        type="submit"
-                        onClick={handleSubmitClick}
-                    >
-                        Register
-                    </button>
-                </form>
-            </div>
+            <Grid container direction="column" alignItems="center" justify="center" style={{ minHeight: '100vh', minWidth: '100vw', maxWidth: '100vw' }}>
+                <Grid item xs={10} md={8}>
+                    <Card fullWidth={true}>
+                        <CardContent fullWidth={true}>
+                            <FormControl focused fullWidth={true} variant="filled">
+                                <div style={{ margin: '10px', marginBottom: '20px', marginTop: '20px' }}>
+                                    {/* <label htmlFor="email">Email address</label> */}
+                                    <TextField autoComplete type="email"
+                                        id="email"
+                                        label="Email"
+                                        variant="outlined"
+                                        aria-describedby="email"
+                                        value={state.email}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                                <Divider variant="middle" />
+                                <div style={{ margin: '10px', marginBottom: '20px', marginTop: '20px' }}>
+                                    {/* <label htmlFor="username">Username</label> */}
+                                    <TextField autoComplete type="username"
+                                        id="username"
+                                        variant="outlined"
+                                        aria-describedby="Username"
+                                        label="Username"
+                                        value={state.username}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                                <Divider variant="middle" />
+                                <div style={{ margin: '10px', marginBottom: '20px', marginTop: '20px' }}>
+                                    {/* <label htmlFor="password">Password</label> */}
+                                    <TextField autoComplete type="password"
+                                        id="password"
+                                        label="Password"
+                                        variant="outlined"
+                                        aria-describedby="password"
+                                        value={state.password}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                                <Divider variant="middle" />
+                                <div style={{ margin: '10px', marginBottom: '20px', marginTop: '20px' }}>
+                                    {/* <label htmlFor="confirmPassword">Confirm Password</label> */}
+                                    <TextField autoComplete type="password"
+                                        id="confirmPassword"
+                                        label="Confirm Password"
+                                        variant="outlined"
+                                        aria-describedby="confirm password"
+                                        value={state.confirmPassword}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </div>
+                                <Divider variant="middle" />
+                                <Button variant="contained" color="primary"
+                                    type="submit"
+                                    onClick={handleSubmitClick}>
+                                    Register
+                                </Button>
+                            </FormControl>
+                        </CardContent>
+                    </Card>
+                </Grid>
+            </Grid>
         );
     }
 }
