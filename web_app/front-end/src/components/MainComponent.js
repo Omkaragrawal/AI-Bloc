@@ -13,6 +13,7 @@ import '../App.css';
 
 //Components
 import RegistrationForm from './signup';
+import LoginForm from './Login';
 import registerSuccess from './registerSuccess';
 
 
@@ -41,19 +42,22 @@ function HomePage() {
 const MainComponent = (props) => {
 
   const refreshToken = useLocalstorage("refreshToken", undefined);
-  const authToken = useLocalstorage("authToken", undefined);
+  const accessToken = useLocalstorage("accessToken", undefined);
 
   let axiosInstance = axios.create({
     baseURL: 'http://localhost:8000'
   });
-  // axiosInstance.defaults.headers.common.Authorization = `Bearer ${authToken[0]}`;
+  // axiosInstance.defaults.headers.common.Authorization = `Bearer ${accessToken[0]}`;
 
 
   return (
     <Switch location={props.location} timeout={3000}>
       <Route path="/" exact component={HomePage} />
       <Route path="/signup">
-        <RegistrationForm axios={axiosInstance} authToken={authToken} refreshToken={refreshToken} />
+        <RegistrationForm axios={axiosInstance} accessToken={accessToken} refreshToken={refreshToken} />
+      </Route>
+      <Route path="/login">
+        <LoginForm axios={axiosInstance} accessToken={accessToken} refreshToken={refreshToken} />
       </Route>
       <Route path="/registration-successful" component={registerSuccess} />
       <Redirect to="/" />
