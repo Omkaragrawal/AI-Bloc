@@ -7,9 +7,9 @@ services:
     build:
       context: .
     ports:
-      - "8000:8000"
+      - "8400:8400"
     volumes:
       - ./web_app:/web_app
     command: >
       sh -c "python manage.py migrate &&
-             python manage.py runserver 0.0.0.0:8000"
+             python manage.py runserver 0.0.0.0:8400"
