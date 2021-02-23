@@ -1,11 +1,36 @@
 import { useState } from 'react';
 import { Redirect, withRouter } from 'react-router-dom';
-import { Button, TextField, Card, CardContent, Divider, FormControl } from '@material-ui/core';
+import { Avatar, Button, TextField, Link, Grid, Container, CssBaseline } from '@material-ui/core';
+// import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+
 
 
 import CenterElement from "./CenterElement";
 
+const useStyles = makeStyles((theme) => ({
+    paper: {
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    avatar: {
+        margin: theme.spacing(1),
+        backgroundColor: theme.palette.secondary.main,
+    },
+    form: {
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing(3),
+    },
+    submit: {
+        margin: theme.spacing(3, 0, 2),
+    },
+}));
 function RegistrationForm(props) {
+    const classes = useStyles();
+
     const handleSubmitClick = async (event) => {
         event.preventDefault();
         // if (state.password === state.confirmPassword) {
@@ -58,72 +83,100 @@ function RegistrationForm(props) {
     } else {
         return (
             <CenterElement>
-                <Card>
-                    <CardContent>
-                        <FormControl focused fullWidth={true} variant="filled">
-                            <div style={{ margin: '10px', marginBottom: '20px', marginTop: '20px' }}>
-                                {/* <label htmlFor="email">Email address</label> */}
-                                <TextField type="email"
-                                    id="email"
-                                    label="Email"
-                                    variant="outlined"
-                                    aria-describedby="email"
-                                    value={state.email}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                            <Divider variant="middle" />
-                            <div style={{ margin: '10px', marginBottom: '20px', marginTop: '20px' }}>
-                                {/* <label htmlFor="username">Username</label> */}
-                                <TextField type="username"
-                                    id="username"
-                                    variant="outlined"
-                                    aria-describedby="Username"
-                                    label="Username"
-                                    value={state.username}
-                                    onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                            <Divider variant="middle" />
-                            <div style={{ margin: '10px', marginBottom: '20px', marginTop: '20px' }}>
-                                {/* <label htmlFor="password">Password</label> */}
-                                <TextField type="password"
-                                    id="password"
-                                    label="Password"
-                                    variant="outlined"
+                <Container component="main" maxWidth="xs">
+                    <CssBaseline />
+                    <div className={classes.paper}>
+                        <Avatar className={classes.avatar}>
+                        </Avatar>
+                        <Typography component="h1" variant="h5">
+                            Sign up
+                        </Typography>
+                        <form className={classes.form} noValidate>
+                            <Grid container spacing={2}>
+                                <Grid item sm={12}>
+                                    <TextField
+                                        type="text"
+                                        id="username"
+                                        aria-describedby="Username"
+                                        label="Username"
+                                        autoComplete="fname"
+                                        name="userName"
+                                        variant="outlined"
+                                        value={state.username}
+                                        onChange={handleChange}
+                                        required
+                                        fullWidth
+                                        autoFocus
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        type="email"
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        id="email"
+                                        label="Email Address"
+                                        name="email"
+                                        aria-describedby="email"
+                                        value={state.email}
+                                        onChange={handleChange}
+                                        autoComplete="email"
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        label="Password"
+                                        type="password"
+                                        id="password"
                                     aria-describedby="password"
                                     value={state.password}
                                     onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                            <Divider variant="middle" />
-                            <div style={{ margin: '10px', marginBottom: '20px', marginTop: '20px' }}>
-                                {/* <label htmlFor="confirmPassword">Confirm Password</label> */}
-                                <TextField type="password"
-                                    id="confirmPassword"
-                                    label="Confirm Password"
-                                    variant="outlined"
+                                        autoComplete="current-password"
+                                    />
+                                </Grid>
+                            </Grid>
+                            <Grid item xs={12}>
+                                    <TextField
+                                        variant="outlined"
+                                        required
+                                        fullWidth
+                                        name="password"
+                                        label="Confirm Password"
+                                        type="password"
+                                        id="confirmPassword"
                                     aria-describedby="confirm password"
                                     value={state.confirmPassword}
                                     onChange={handleChange}
-                                    required
-                                />
-                            </div>
-                            <Divider variant="middle" />
-                            <Button variant="contained" color="primary"
+                                        autoComplete="current-password"
+                                    />
+                                </Grid>
+                            <Button
                                 type="submit"
-                                onClick={handleSubmitClick}>
-                                Register
-                                </Button>
-                        </FormControl>
-                    </CardContent>
-                </Card>
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                                onClick={handleSubmitClick}
+                            >
+                                Sign Up
+                            </Button>
+                            <Grid container justify="flex-end">
+                                <Grid item>
+                                    <Link href="#" variant="body2">
+                                        Already have an account? Sign in
+                                    </Link>
+                                </Grid>
+                            </Grid>
+                        </form>
+                    </div>
+                </Container>
             </CenterElement>
         );
     }
 }
-
 export default withRouter(RegistrationForm);
